@@ -2,6 +2,9 @@ pipeline {
     
     agent any
 
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub')
+    }
     stages {
         
         stage('Build') {
@@ -13,9 +16,10 @@ pipeline {
             }
         }
         
-        stage('Pushing') {
+        stage('Push') {
             steps {
-                sh 'docker images'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'docker push rubenalbiach/jenkins-docker:2.401.1-lts'  
             }
         }
     }
