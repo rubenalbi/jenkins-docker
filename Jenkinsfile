@@ -12,7 +12,7 @@ pipeline {
                 echo 'Building'
                 sh 'ls'
                 sh 'docker info'
-                sh 'docker image build -t jenkins-docker:2.401.1-lts .'
+                sh 'docker image build -t rubenalbiach/jenkins-docker:2.401.1-lts .'
             }
         }
         
