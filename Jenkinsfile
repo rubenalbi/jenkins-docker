@@ -1,15 +1,14 @@
 pipeline {
     
     agent any
-
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub')
+        TAG_VERSION = '2.401.1-lts'
+    }
     stages {
         stage('Build') {
             steps {
                 echo 'Building'
-                environment {
-                    DOCKERHUB_CREDENTIALS = credentials('docker-hub')
-                    TAG_VERSION = '2.401.1-lts'
-                }
                 sh 'ls'
                 sh 'docker info'
                 sh 'docker image build -t rubenalbiach/jenkins-docker:$TAG_VERSION --build-arg TAG=$TAG_VERSION .'
